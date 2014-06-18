@@ -9,8 +9,13 @@
   height: auto;
 }
 
+.navbar .container .navbar-brand {
+  margin-left: 15px;
+}
+
 .navbar {
   border-radius: 0px;
+  font: 16px 'Montserrat', serif;
 }
 
 .navbar-inverse {
