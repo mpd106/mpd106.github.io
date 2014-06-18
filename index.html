@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Fonts -->
+  <link href="http://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Ledger" rel="stylesheet" type="text/css">
 </head>
 <body>
   <script type="text/x-handlebars" id="about">
@@ -15,6 +19,9 @@
 
   <script type="text/x-handlebars" id="posts">
     <div class="container-fluid">
+      <div class="col-md-9"> <!-- content -->
+        {{outlet}}
+      </div> <!-- /content -->
       <div class="col-md-3"> <!-- article nav -->
         <table class="table">
           <thead>
@@ -30,9 +37,6 @@
           </tbody>
         </table>
       </div> <!-- /article nav -->
-      <div class="col-md-9"> <!-- content -->
-        {{outlet}}
-      </div> <!-- /content -->
     </div>
   </script>
 
@@ -54,7 +58,7 @@
   
   <script type="text/x-handlebars">
 
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -76,7 +80,9 @@
       </div><!-- /.container-fluid -->
     </nav>
 
+    <div class="container">
     {{outlet}}
+    </div>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
