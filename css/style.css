@@ -3,9 +3,20 @@
     margin: 0px;
 }
 
+/**** nav ****/
 .navbar-brand, .navbar-nav li a {
-  line-height: 38px; 
+  line-height: 38px;
+  height: auto;
 }
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-inverse {
+  background-image: linear-gradient(to bottom,#313131 0,#313131 100%);
+}
+/**** /nav ****/
 
 a {
 	cursor: pointer;
