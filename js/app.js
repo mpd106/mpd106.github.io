@@ -1,9 +1,12 @@
 /* global App, Ember, Showdown, Handlebars, moment, $ */
 
-App = Ember.Application.create();
+App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
+  LOG_TRANSITIONS_INTERNAL: true
+});
 
 App.Router.map(function() {
-  this.resource('about');
+  this.route('about');
   this.resource('posts', function() {
     this.resource('post', { path: ':post_id' });
   });
@@ -19,9 +22,21 @@ Ember.Handlebars.helper('format-date', function(date) {
   return moment(date).fromNow();
 });
 
+App.IndexRoute = Ember.Route.extend({
+  redirect: function() {
+    this.transitionTo('posts');
+  }
+});
+
 App.PostsRoute = Ember.Route.extend({
   model: function() {
     return $.getJSON('http://localhost:4730/posts?callback=?');
+  },
+  redirect: function() {
+    var posts = this.modelFor('posts');
+    if (posts.get('length') >= 1) {
+      this.transitionTo('post', posts[0].id);
+    }
   }
 });
 
