@@ -30,7 +30,7 @@ App.IndexRoute = Ember.Route.extend({
 
 App.PostsRoute = Ember.Route.extend({
   model: function() {
-    return $.getJSON('http://localhost:4730/posts?callback=?');
+    return $.getJSON('http://localhost:4730/posts');
   },
   redirect: function() {
     var posts = this.modelFor('posts');
@@ -42,7 +42,7 @@ App.PostsRoute = Ember.Route.extend({
 
 App.PostRoute = Ember.Route.extend({
   model: function(params) {
-    var result = $.getJSON('http://localhost:4730/posts/' + params.post_id + '?callback=?');
+    var result = $.getJSON('http://localhost:4730/posts/' + params.post_id);
     
     return result;
   }
