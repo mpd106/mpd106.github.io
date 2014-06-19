@@ -29,8 +29,13 @@ a {
 
 h1 {
   font: 400 80px/1.2 'Nixie One', Georgia, serif;
+  color: #5ED5C2;
 }
  
 p {
+  font: 400 15px/1.6 'Ledger', Garamond, Georgia, serif;
+}
+
+body {
   font: 400 15px/1.6 'Ledger', Garamond, Georgia, serif;
 }
