@@ -1,4 +1,4 @@
-/* global App, Ember, Showdown, Handlebars, moment, $ */
+/* global App, Ember, Showdown, Handlebars, moment, $, document */
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
@@ -45,5 +45,16 @@ App.PostRoute = Ember.Route.extend({
     var result = $.getJSON('http://api.mpd106.com/posts/' + params.post_id);
     
     return result;
+  }
+});
+
+App.PostView = Ember.View.extend({
+  didInsertElement: function() {
+    var disqus_shortname = 'mpd106-blog'; // Required - Replace example with your forum shortname
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
   }
 });
