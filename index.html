@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script type="text/javascript">var disqus_developer = 1;</script>
   
   <!-- Fonts -->
   <link href="http://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet" type="text/css">
@@ -23,30 +22,34 @@
       </div>
     </div>
   </script>
-
+  
+  <script type="text/x-handlebars" id="components/post-nav">
+    <div id="post-nav" class="col-md-3"> <!-- article nav -->
+      <table class="table">
+        <thead>
+          <tr><th>Recent Posts</th></tr>
+        </thead>
+        <tbody>
+          {{#each post in posts}}
+            <tr><td>
+              {{#link-to 'post' post}}{{post.title}}{{/link-to}}
+              <small class="text-muted"> by {{post.author.name}}</small>
+            </td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div> <!-- /article nav -->
+  </script>
+  
   <script type="text/x-handlebars" id="posts">
     <div class="container-fluid">
       <div class="col-md-9"> <!-- content -->
         {{outlet}}
       </div> <!-- /content -->
-      <div class="col-md-3"> <!-- article nav -->
-        <table class="table">
-          <thead>
-            <tr><th>Posts</th></tr>
-          </thead>
-          <tbody>
-            {{#each}}
-              <tr><td>
-                {{#link-to 'post' this}}{{title}}{{/link-to}}
-                <small class="text-muted"> by {{author.name}}</small>
-              </td></tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div> <!-- /article nav -->
+      {{post-nav posts=this}}
     </div>
   </script>
-
+  
   <script type="text/x-handlebars" id="post">
     <h1>{{title}}</h1>
     <span>by {{author.name}}</span>
@@ -57,7 +60,6 @@
     <div>{{format-markdown body}}</div>
     <div id="disqus_thread"></div>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
   </script>
   
   <script type="text/x-handlebars">
@@ -100,6 +102,7 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/router.js"></script>
   
   <script type="text/javascript">
     
