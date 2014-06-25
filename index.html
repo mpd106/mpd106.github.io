@@ -16,41 +16,27 @@
 <body>
   <script type="text/x-handlebars" id="about">
     <div class="container-fluid">
-      <div class="col-md-9"> <!-- content -->
+      <div class="col-md-12">
         <h1>Matt Dickens</h1>
         <p>Matt Dickens is a handsome fella.</p>
       </div>
     </div>
   </script>
   
-  <script type="text/x-handlebars" id="_post-nav">
-    <div id="post-nav" class="col-md-3"> <!-- article nav -->
-      <table class="table">
-        <thead>
-          <tr><th>Recent Posts</th></tr>
-        </thead>
-        <tbody>
-          {{#each}}
-            <tr><td>
-              {{#link-to 'post' this}}{{title}}{{/link-to}}
-              <small class="text-muted"> by {{author.name}}</small>
-            </td></tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div> <!-- /article nav -->
-  </script>
-  
   <script type="text/x-handlebars" id="posts">
     <div class="container-fluid">
       <div class="col-md-9"> <!-- content -->
-        {{outlet}}
+        {{#each}}
+          <div class="post">
+            {{partial "post"}}
+          </div>
+        {{/each}}
       </div> <!-- /content -->
       {{partial "post-nav"}}
     </div>
   </script>
   
-  <script type="text/x-handlebars" id="post">
+  <script type="text/x-handlebars" id="_post">
     <h1>{{title}}</h1>
     <span>by {{author.name}}</span>
     <span><small class="text-muted"> ({{format-date date}})</small></span>
@@ -58,12 +44,19 @@
     <hr>
 
     <div>{{format-markdown body}}</div>
-    <div id="disqus_thread"></div>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </script>
+  
+  <script type="text/x-handlebars" id="post">
+    <div class="container-fluid">
+      <div class="col-md-12">
+        {{partial "post"}}
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    </div>
   </script>
   
   <script type="text/x-handlebars">
-
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -89,6 +82,24 @@
     <div class="container central-panel">
     {{outlet}}
     </div>
+  </script>
+  
+  <script type="text/x-handlebars" id="_post-nav">
+    <div id="post-nav" class="col-md-3"> <!-- article nav -->
+      <table class="table">
+        <thead>
+          <tr><th>Recent Posts</th></tr>
+        </thead>
+        <tbody>
+          {{#each}}
+            <tr><td>
+              {{#link-to 'post' this}}{{title}}{{/link-to}}
+              <small class="text-muted"> ({{format-date date}})</small>
+            </td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div> <!-- /article nav -->
   </script>
   
   <script src="js/libs/jquery-1.10.2.js"></script>

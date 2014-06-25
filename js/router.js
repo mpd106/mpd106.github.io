@@ -2,9 +2,8 @@
 
 App.Router.map(function() {
   this.route('about');
-  this.resource('posts', function() {
-    this.resource('post', { path: ':post_id' });
-  });
+  this.resource('posts');
+  this.resource('post', { path: 'post/:post_id' });
 });
 
 App.IndexRoute = Ember.Route.extend({

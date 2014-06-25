@@ -40,6 +40,22 @@ p {
   font: 400 15px/1.6 'Ledger', Garamond, Georgia, serif;
 }
 
+hr {
+  size: 5;
+}
+
+.post:after {
+  content:' ';
+  display:block;
+  border:1px solid #eee;
+  margin: 70px 0px 50px 0px;
+}
+
+.post:last-of-type:after {
+  content: '';
+  border: none;
+}
+
 body {
   font: 400 15px/1.6 'Ledger', Garamond, Georgia, serif;
   background: rgb(255,255,255); /* Old browsers */
