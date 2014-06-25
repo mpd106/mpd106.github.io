@@ -23,17 +23,17 @@
     </div>
   </script>
   
-  <script type="text/x-handlebars" id="components/post-nav">
+  <script type="text/x-handlebars" id="_post-nav">
     <div id="post-nav" class="col-md-3"> <!-- article nav -->
       <table class="table">
         <thead>
           <tr><th>Recent Posts</th></tr>
         </thead>
         <tbody>
-          {{#each post in posts}}
+          {{#each}}
             <tr><td>
-              {{#link-to 'post' post}}{{post.title}}{{/link-to}}
-              <small class="text-muted"> by {{post.author.name}}</small>
+              {{#link-to 'post' this}}{{title}}{{/link-to}}
+              <small class="text-muted"> by {{author.name}}</small>
             </td></tr>
           {{/each}}
         </tbody>
@@ -46,7 +46,7 @@
       <div class="col-md-9"> <!-- content -->
         {{outlet}}
       </div> <!-- /content -->
-      {{post-nav posts=this}}
+      {{partial "post-nav"}}
     </div>
   </script>
   
