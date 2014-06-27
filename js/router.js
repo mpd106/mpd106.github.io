@@ -14,13 +14,13 @@ App.IndexRoute = Ember.Route.extend({
 
 App.PostsRoute = Ember.Route.extend({
   model: function() {
-    return $.getJSON('http://api.mpd106.com/posts');
+    return $.getJSON('http://localhost:4730/posts');
   }
 });
 
 App.PostRoute = Ember.Route.extend({
   model: function(params) {
-    var result = $.getJSON('http://api.mpd106.com/posts/' + params.post_id);
+    var result = $.getJSON('http://localhost:4730/posts/' + params.post_id);
     
     return result;
   }
