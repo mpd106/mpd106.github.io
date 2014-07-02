@@ -1,4 +1,4 @@
-/* global App, Ember, Showdown, Handlebars, moment, $, document */
+/* global App, Ember, Showdown, Handlebars, moment, $, document, Prism */
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
@@ -6,9 +6,6 @@ App = Ember.Application.create({
 });
 
 var showdown = new Showdown.converter();
-var postProcessPosts = function() {
-  Prism.highlightAll();
-};
 
 Ember.Handlebars.helper('format-markdown', function(body) {
   return new Handlebars.SafeString(showdown.makeHtml(body));
@@ -20,22 +17,39 @@ Ember.Handlebars.helper('format-date', function(date) {
 
 App.PostsView = Ember.View.extend({
   didInsertElement: function() {
+    initializeTwitterWidget();
     postProcessPosts();
-    
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   }
 });
 
 App.PostView = Ember.View.extend({
   didInsertElement: function() {
-    var disqus_shortname = 'mpd106-blog';
-    
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    
+    var postModel = this.get('controller.model');
+    initializeDisqus(postModel.id, postModel.title);
     postProcessPosts();
   }
 });
+
+var initializeDisqus = function(id, title) {
+  var defaultOrigin = 'http://mpd106.com';
+  var location = window.location;
+  var url = defaultOrigin + location.pathname + location.hash;
+  var disqus_shortname = 'mpd106-blog';
+  var disqus_identifier = id;
+  var disqus_title = title;
+  var disqus_url = url;
+
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+};
+
+var initializeTwitterWidget = function() {
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+};
+
+var postProcessPosts = function() {
+  Prism.highlightAll();
+};
