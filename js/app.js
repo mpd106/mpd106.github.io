@@ -1,8 +1,16 @@
-/* global App, Ember, Showdown, Handlebars, moment, $, document, Prism */
+/* global App, Ember, Showdown, Handlebars, moment, $, document, Prism, DISQUS */
+
+Ember.Application.initializer({
+  name: "initializeDisqus",
+ 
+  initialize: function(container, application) {
+    initializeDisqus();
+  }
+});
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
-  LOG_TRANSITIONS_INTERNAL: true
+  LOG_TRANSITIONS_INTERNAL: true,
 });
 
 var showdown = new Showdown.converter();
@@ -25,25 +33,34 @@ App.PostsView = Ember.View.extend({
 App.PostView = Ember.View.extend({
   didInsertElement: function() {
     var postModel = this.get('controller.model');
-    initializeDisqus(postModel.id, postModel.title);
+    initializeDisqusThread(postModel.id, postModel.title);
     postProcessPosts();
   }
 });
 
-var initializeDisqus = function(id, title) {
+var initializeDisqus = function() {
+  var disqus_shortname = 'mpd106-blog';
+  
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+};
+
+var initializeDisqusThread = function(id, title) {
   var defaultOrigin = 'http://mpd106.com';
   var location = window.location;
   var url = defaultOrigin + location.pathname + location.hash;
-  var disqus_shortname = 'mpd106-blog';
-  var disqus_identifier = id;
-  var disqus_title = title;
-  var disqus_url = url;
 
-  (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+  DISQUS.reset({
+  reload: true,
+  config: function () {  
+      this.page.identifier = id;  
+      this.page.url = url;
+      this.page.title = title;
+    }
+  });
 };
 
 var initializeTwitterWidget = function() {
