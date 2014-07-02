@@ -29,9 +29,6 @@ App.PostsView = Ember.View.extend({
 App.PostView = Ember.View.extend({
   didInsertElement: function() {
     var disqus_shortname = 'mpd106-blog';
-    var disqus_identifier = 'a unique identifier for each page where Disqus is present';
-    var disqus_title = 'a unique title for each page where Disqus is present';
-    var disqus_url = 'a unique URL for each page where Disqus is present';
     
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
