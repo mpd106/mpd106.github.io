@@ -29,7 +29,7 @@
       <div class="col-md-9"> <!-- content -->
         {{#each}}
           <div class="post">
-            {{partial "post"}}
+            {{partial "partial-post"}}
           </div>
         {{/each}}
       </div> <!-- /content -->
@@ -37,8 +37,18 @@
     </div>
   </script>
   
-  <script type="text/x-handlebars" id="_post">
+  <script type="text/x-handlebars" id="_full-post">
     <h1>{{title}}</h1>
+    <span>by {{author.name}}</span>
+    <span><small class="text-muted"> ({{format-date date}})</small></span>
+
+    <hr>
+
+    <div>{{format-markdown body}}</div>
+  </script>
+  
+  <script type="text/x-handlebars" id="_partial-post">
+    <h1>{{#link-to 'post' this}}{{title}}{{/link-to}}</h1>
     <span>by {{author.name}}</span>
     <span><small class="text-muted"> ({{format-date date}})</small></span>
 
@@ -50,7 +60,7 @@
   <script type="text/x-handlebars" id="post">
     <div class="container-fluid">
       <div class="col-md-12">
-        {{partial "post"}}
+        {{partial "full-post"}}
         <div id="disqus_thread"></div>
         <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>

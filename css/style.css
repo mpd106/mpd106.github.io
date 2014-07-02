@@ -32,8 +32,16 @@ a {
 	cursor: pointer;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 h1 {
   font: 400 80px/1.2 'Nixie One', Georgia, serif;
+  color: #5ED5C2;
+}
+
+h1 a {
   color: #5ED5C2;
 }
  
